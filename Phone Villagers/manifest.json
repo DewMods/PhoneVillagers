@@ -1,0 +1,10 @@
+﻿{
+    "Name": "PhoneVillagers",
+    "Author": "Sundew",
+    "Version": "0.1.0",
+    "Description": "Call any villager via phone",
+    "UniqueID": "Sundew.PhoneVillagers",
+    "EntryDll": "PhoneVillagers.dll",
+    "MinimumApiVersion": "2.6",
+    "UpdateKeys": []
+}
