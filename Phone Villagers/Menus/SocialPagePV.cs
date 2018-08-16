@@ -29,10 +29,13 @@ namespace PhoneVillagers.Menus
             base.receiveLeftClick(x, y, playSound);
 
             var sprites = _mod.Helper.Reflection.GetField<List<ClickableTextureComponent>>(this, "sprites")?.GetValue();
-            var clickedNpcPortrait = sprites?.FirstOrDefault(s => s.bounds.Contains(x, y));
-            if (clickedNpcPortrait != null)
+            _mod.Monitor.Log($"Found sprites {sprites?.Count(s => s.bounds.Contains(x, y))}");
+
+            // Bug #4 - When clicking on the top displayed row, we get 2 results (first row + the clicked row)
+            var clickedSprites = sprites?.LastOrDefault(s => s.bounds.Contains(x, y));
+            if (clickedSprites != null)
             {
-                var clickedIndex = sprites.IndexOf(clickedNpcPortrait);
+                var clickedIndex = sprites.IndexOf(clickedSprites);
 
                 var names = _mod.Helper.Reflection.GetField<List<object>>(this, "names")?.GetValue();
                 var clickedNpcName = names?[clickedIndex] as string;
