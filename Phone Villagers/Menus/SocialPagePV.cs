@@ -11,9 +11,9 @@ namespace PhoneVillagers.Menus
     /// </summary>
     internal class SocialPagePV : SocialPage
     {
-        private readonly Mod _mod;
+        private readonly ModEntry _mod;
 
-        public SocialPagePV(Mod mod, int x, int y, int width, int height) : base(x, y, width, height)
+        public SocialPagePV(ModEntry mod, int x, int y, int width, int height) : base(x, y, width, height)
         {
             _mod = mod;
         }
@@ -53,8 +53,8 @@ namespace PhoneVillagers.Menus
 
             // Friendship check
             var npcFriendship = who.friendshipData[npcName].Points;
-            _mod.Monitor.Log($"Friendship between {who.name} and {npcName} is: {npcFriendship}");
-            if (npcFriendship <= 1250)  // 250 per heart
+            _mod.Monitor.Log($"Friendship between {who.Name} and {npcName} is: {npcFriendship}");
+            if (npcFriendship <= _mod.Config.MinimumFriendshipRequired)  // 250 per heart
             {
                 Game1.drawDialogueNoTyping($"{who.Name} does not have {npcName}'s phone number yet.");
                 return;

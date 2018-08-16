@@ -15,6 +15,8 @@ namespace PhoneVillagers
     /// <summary>The mod entry point.</summary>
     public class ModEntry : Mod
     {
+        internal ModConfig Config;
+
         /*********
         ** Public methods
         *********/
@@ -22,6 +24,8 @@ namespace PhoneVillagers
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
+            this.Config = this.Helper.ReadConfig<ModConfig>();
+
             MenuEvents.MenuChanged += MenuEvents_MenuChanged;
             InputEvents.ButtonPressed += this.InputEvents_ButtonPressed;
         }
