@@ -29,9 +29,9 @@ Yes, this will add the same amount of friendship as talking to the NPC directly.
 
 Yes!
 
-**6. Can I send gifts?**
+**6. Can I send gifts to Villagers using this mod?**
 
-Not currently.
+It was deliberately disabled.
 
 # Donations
 If you liked this mod and would like to make a donation to me, you can do so via NexusMods [here](https://www.nexusmods.com/Core/Libs/Common/Widgets/PayPalPopUp?user=57714041).
