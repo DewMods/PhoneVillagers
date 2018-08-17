@@ -10,18 +10,23 @@ Phone Villagers is a Stardew Valley mod. The mod allows players to initiate dial
 
 # FAQ
 **1. How do I call NPCs?**
+
 Open your in-game menu and go to the "Social Page". Then just click the row of the NPC you'd like to talk with.
 
 **2. Does this add new dialogue?**
+
 No
 
 **3. Does this improve friendship?**
+
 Yes, this will add the same amount of friendship as talking to the NPC directly.
 
 **4. How much does it cost per call?**
+
 5G
 
 **5. Will I lose 5G even if the call is not succesful?**
+
 Yes!
 
 # Donations
