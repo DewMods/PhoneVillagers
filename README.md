@@ -35,6 +35,6 @@ Stardew Valley 1.3.27+
 SMAPI 2.6+
 
 # Links
-[PhoneVillagers on NexusMods](https://www.nexusmods.com/stardewvalley/mods/2681).
+[PhoneVillagers on NexusMods](https://www.nexusmods.com/stardewvalley/mods/2681)
 
-[SMAPI](https://canimod.com/).
+[SMAPI](https://canimod.com/)
