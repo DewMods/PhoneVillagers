@@ -2,6 +2,7 @@
 using System.Linq;
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.Locations;
 using StardewValley.Menus;
 
 namespace DewMods.StardewValleyMods.PhoneVillagers.Menus
@@ -35,22 +36,35 @@ namespace DewMods.StardewValleyMods.PhoneVillagers.Menus
             var clickedSprites = sprites?.LastOrDefault(s => s.bounds.Contains(x, y));
             if (clickedSprites != null)
             {
-                var clickedIndex = sprites.IndexOf(clickedSprites);
+                var who = Game1.player;
 
+                // Check cost per call
+                if (who.Money >= _mod.Config.CostPerCall)
+                {
+                    _mod.Monitor.Log($"Deducting {_mod.Config.CostPerCall}G from {who.Name}");
+                    who.Money -= _mod.Config.CostPerCall;
+                }
+                else
+                {
+                    Game1.drawDialogueNoTyping($"{who.Name} needs at least {_mod.Config.CostPerCall}G to make a call.");
+                    return;
+                }
+
+                // Get NPC that was clicked
+                var clickedIndex = sprites.IndexOf(clickedSprites);
                 var names = _mod.Helper.Reflection.GetField<List<object>>(this, "names")?.GetValue();
                 var clickedNpcName = names?[clickedIndex] as string;
-
                 _mod.Monitor.Log($"You clicked on {clickedNpcName}");
 
-                TalkToNpc(clickedNpcName);
+                CallNPc(clickedNpcName);
             }
         }
 
         /// <summary>
-        /// Initiate dialogue with the given NPC
+        /// Call the given NPC
         /// </summary>
         /// <param name="npcName"></param>
-        private void TalkToNpc(string npcName)
+        private void CallNPc(string npcName)
         {
             var who = Game1.player;
 
@@ -78,7 +92,7 @@ namespace DewMods.StardewValleyMods.PhoneVillagers.Menus
                         who.ActiveObject = null;
                     }
 
-                    // Talk
+                    // Bug #5 Talk and add friendship
                     npc.checkAction(who, npc.currentLocation);
 
                     // Restore active object

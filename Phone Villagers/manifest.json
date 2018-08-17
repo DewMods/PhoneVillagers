@@ -1,7 +1,7 @@
 ﻿{
     "Name": "PhoneVillagers",
     "Author": "DewMods",
-    "Version": "0.1.1",
+    "Version": "0.2.0",
     "Description": "Call any villager via phone",
     "UniqueID": "DewMods.StardewValleyMods.PhoneVillagers",
     "EntryDll": "DewMods.StardewValleyMods.PhoneVillagers.dll",
