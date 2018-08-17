@@ -1,14 +1,40 @@
-# PhoneVillagers
-PhoneVillagers is a Stardew Valley mod to initiate dialogue with villagers from the Social Page.
+# Phone Villagers
+This mod is built on SMAPI. 
 
-# Requirements
-This mod requires Pathoschild's SMAPI v2.6 (as of 14/08/2018).
+Phone Villagers is a Stardew Valley mod. The mod allows players to initiate dialogue with NPC villagers even if they are in different locations.
 
-You can download it from [here](https://canimod.com/).
+# Compatibility
+| Description  | Version | Status |
+| ------------ | ------- | ------ |
+| PC Steam release (Single Player) | 1.3.27+ | Confirmed |
+
+# FAQ
+**1. How do I call NPCs?**
+Open your in-game menu and go to the "Social Page". Then just click the row of the NPC you'd like to talk with.
+
+**2. Does this add new dialogue?**
+No
+
+**3. Does this improve friendship?**
+Yes, this will add the same amount of friendship as talking to the NPC directly.
+
+**4. How much does it cost per call?**
+5G
+
+**5. Will I lose 5G even if the call is not succesful?**
+Yes!
 
 # Donations
-Donations will help me continue with what I love doing - coding, gaming, and gardening!
-
-I accept dontaions via my Paypal [here](https://paypal.me/PayAlanSun).
+If you liked this mod and would like to make a donation to me, you can do so via NexusMods [here](https://www.nexusmods.com/Core/Libs/Common/Widgets/PayPalPopUp?user=57714041).
 
 Thank you for your support!
+
+# Requirements
+Stardew Valley 1.3.27+
+
+SMAPI 2.6+
+
+# Links
+[PhoneVillagers on NexusMods](https://www.nexusmods.com/stardewvalley/mods/2681).
+
+[SMAPI](https://canimod.com/).
