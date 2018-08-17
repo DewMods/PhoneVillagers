@@ -34,7 +34,7 @@ Yes!
 It was deliberately disabled.
 
 # Donations
-If you liked this mod and would like to make a donation to me, you can do so via NexusMods [here](https://www.nexusmods.com/Core/Libs/Common/Widgets/PayPalPopUp?user=57714041).
+If you liked this mod and would like to make a donation to me, you can do so via NexusMods [here](https://www.nexusmods.com/users/57714041).
 
 Thank you for your support!
 
