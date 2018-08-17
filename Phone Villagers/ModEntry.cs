@@ -7,10 +7,11 @@ using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
 using System.Collections.Generic;
-using PhoneVillagers.Menus;
+using DewMods.StardewValleyMods.PhoneVillagers.Menus;
 using StardewValley.Menus;
+using SocialPage = DewMods.StardewValleyMods.PhoneVillagers.Menus.SocialPage;
 
-namespace PhoneVillagers
+namespace DewMods.StardewValleyMods.PhoneVillagers
 {
     /// <summary>The mod entry point.</summary>
     public class ModEntry : Mod
@@ -42,11 +43,11 @@ namespace PhoneVillagers
             if (e.NewMenu is GameMenu menu)
             {
                 var pages = this.Helper.Reflection.GetField<List<IClickableMenu>>(menu, "pages").GetValue();
-                var socialPage = pages.FirstOrDefault(p => p is SocialPage);
+                var socialPage = pages.FirstOrDefault(p => p is StardewValley.Menus.SocialPage);
                 if (socialPage != null)
                 {
                     var indexOfSocialPage = pages.IndexOf(socialPage);
-                    pages[indexOfSocialPage] = new SocialPagePV(this, socialPage.xPositionOnScreen, socialPage.yPositionOnScreen, socialPage.width, socialPage.height);
+                    pages[indexOfSocialPage] = new Menus.SocialPage(this, socialPage.xPositionOnScreen, socialPage.yPositionOnScreen, socialPage.width, socialPage.height);
                 }
             }
         }
@@ -82,9 +83,9 @@ namespace PhoneVillagers
                     if (Game1.activeClickableMenu is GameMenu menu)
                     {
                         var pages = this.Helper.Reflection.GetField<List<IClickableMenu>>(menu, "pages").GetValue();
-                        if (pages[menu.currentTab] is SocialPage socialPage)
+                        if (pages[menu.currentTab] is StardewValley.Menus.SocialPage socialPage)
                         {
-                            pages[menu.currentTab] = new SocialPagePV(this, socialPage.xPositionOnScreen, socialPage.yPositionOnScreen, socialPage.width, socialPage.height);
+                            pages[menu.currentTab] = new Menus.SocialPage(this, socialPage.xPositionOnScreen, socialPage.yPositionOnScreen, socialPage.width, socialPage.height);
                         }
                     }
 

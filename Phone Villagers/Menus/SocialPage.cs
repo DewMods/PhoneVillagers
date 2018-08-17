@@ -4,16 +4,16 @@ using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Menus;
 
-namespace PhoneVillagers.Menus
+namespace DewMods.StardewValleyMods.PhoneVillagers.Menus
 {
     /// <summary>
     /// Mod specific version of the SocialPage
     /// </summary>
-    internal class SocialPagePV : SocialPage
+    internal class SocialPage : StardewValley.Menus.SocialPage
     {
         private readonly ModEntry _mod;
 
-        public SocialPagePV(ModEntry mod, int x, int y, int width, int height) : base(x, y, width, height)
+        public SocialPage(ModEntry mod, int x, int y, int width, int height) : base(x, y, width, height)
         {
             _mod = mod;
         }
@@ -54,37 +54,43 @@ namespace PhoneVillagers.Menus
         {
             var who = Game1.player;
 
-            // Friendship check
-            var npcFriendship = who.friendshipData[npcName].Points;
-            _mod.Monitor.Log($"Friendship between {who.Name} and {npcName} is: {npcFriendship}");
-            if (npcFriendship <= _mod.Config.MinimumFriendshipRequired)  // 250 per heart
-            {
-                Game1.drawDialogueNoTyping($"{who.Name} does not have {npcName}'s phone number yet.");
-                return;
-            }
-
             var npc = Game1.getCharacterFromName(npcName);
             if (npc != null)
             {
-                // Get NPC dialogue
-                if (who.friendshipData.ContainsKey(npc.Name))
+                var npcFriendshipBefore = who.tryGetFriendshipLevelForNPC(npcName);
+                _mod.Monitor.Log(
+                    $"{npc.Name} location: {npc.currentLocation.Name}. Friendship with {who.Name}: {npcFriendshipBefore}.");
+
+                // Friendship check
+                if (npcFriendshipBefore <= _mod.Config.MinimumFriendshipRequired)  // 250 per heart
                 {
-                    var flag1 = npc.checkForNewCurrentDialogue(who.friendshipData[npc.Name].Points, false);
-                    if (!flag1)
-                    {
-                        npc.checkForNewCurrentDialogue(who.friendshipData[npc.Name].Points, true);
-                    }
+                    Game1.drawDialogueNoTyping($"{who.Name} does not have {npcName}'s phone number yet.");
+                    return;
                 }
 
-                if (npc.CurrentDialogue.Count == 0)
+                // Check if NPC has dialogue
+                if (npc.CurrentDialogue.Count > 0)
                 {
-                    // NPC has no dialogue, no answer
-                    Game1.drawDialogueNoTyping("*No one answers...*");
+                    // Prevent gifting to NPC
+                    var activeObject = who.ActiveObject;
+                    if (activeObject != null)
+                    {
+                        who.ActiveObject = null;
+                    }
+
+                    // Talk
+                    npc.checkAction(who, npc.currentLocation);
+
+                    // Restore active object
+                    if (activeObject != null)
+                    {
+                        who.ActiveObject = activeObject;
+                    }
                 }
                 else
                 {
-                    // Display NPC dialogue
-                    Game1.drawDialogue(npc);
+                    // NPC has no dialogue, no answer
+                    Game1.drawDialogueNoTyping("*No one answers...*");
                 }
             }
         }

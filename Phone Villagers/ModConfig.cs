@@ -1,4 +1,6 @@
-﻿class ModConfig
+﻿using StardewValley;
+
+class ModConfig
 {
-    public int MinimumFriendshipRequired { get; set; } = 1250;
+    public int MinimumFriendshipRequired { get; set; } = NPC.maxFriendshipPoints / 2;
 }

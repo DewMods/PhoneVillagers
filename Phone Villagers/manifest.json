@@ -1,10 +1,10 @@
 ﻿{
     "Name": "PhoneVillagers",
-    "Author": "Sundew",
-    "Version": "0.1.0",
+    "Author": "DewMods",
+    "Version": "0.1.1",
     "Description": "Call any villager via phone",
-    "UniqueID": "Sundew.PhoneVillagers",
-    "EntryDll": "PhoneVillagers.dll",
+    "UniqueID": "DewMods.StardewValleyMods.PhoneVillagers",
+    "EntryDll": "DewMods.StardewValleyMods.PhoneVillagers.dll",
     "MinimumApiVersion": "2.6",
-    "UpdateKeys": []
+    "UpdateKeys": [ "Nexus:2681" ]
 }

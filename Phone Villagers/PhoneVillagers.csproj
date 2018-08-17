@@ -7,8 +7,8 @@
     <ProjectGuid>{7C9CFB85-DD0B-42EC-A86A-F65C61C6EC61}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PhoneVillagers</RootNamespace>
-    <AssemblyName>PhoneVillagers</AssemblyName>
+    <RootNamespace>DewMods.StardewValleyMods.PhoneVillagers</RootNamespace>
+    <AssemblyName>DewMods.StardewValleyMods.PhoneVillagers</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -45,7 +45,7 @@
     <Compile Include="ModConfig.cs" />
     <Compile Include="ModEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Menus\SocialPagePV.cs" />
+    <Compile Include="Menus\SocialPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="manifest.json" />
