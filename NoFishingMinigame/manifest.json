@@ -1,0 +1,10 @@
+﻿{
+    "Name": "SkipFishingMinigame",
+    "Author": "DewMods",
+    "Version": "0.1.0",
+    "Description": "When a fish bites, you immediately catch the fish",
+    "UniqueID": "DewMods.StardewValleyMods.SkipFishingMinigame",
+    "EntryDll": "DewMods.StardewValleyMods.SkipFishingMinigame.dll",
+    "MinimumApiVersion": "2.7",
+    "UpdateKeys": [  ]
+}
