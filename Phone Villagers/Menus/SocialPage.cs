@@ -30,7 +30,7 @@ namespace DewMods.StardewValleyMods.PhoneVillagers.Menus
             base.receiveLeftClick(x, y, playSound);
 
             var sprites = _mod.Helper.Reflection.GetField<List<ClickableTextureComponent>>(this, "sprites")?.GetValue();
-            _mod.Monitor.Log($"Found sprites {sprites?.Count(s => s.bounds.Contains(x, y))}");
+            _mod.Log($"Found sprites {sprites?.Count(s => s.bounds.Contains(x, y))}");
 
             // Bug #4 - When clicking on the top displayed row, we get 2 results (first row + the clicked row)
             var clickedSprites = sprites?.LastOrDefault(s => s.bounds.Contains(x, y));
@@ -41,7 +41,7 @@ namespace DewMods.StardewValleyMods.PhoneVillagers.Menus
                 // Check cost per call
                 if (who.Money >= _mod.Config.CostPerCall)
                 {
-                    _mod.Monitor.Log($"Deducting {_mod.Config.CostPerCall}G from {who.Name}");
+                    _mod.Log($"Deducting {_mod.Config.CostPerCall}G from {who.Name}");
                     who.Money -= _mod.Config.CostPerCall;
                 }
                 else
@@ -54,7 +54,7 @@ namespace DewMods.StardewValleyMods.PhoneVillagers.Menus
                 var clickedIndex = sprites.IndexOf(clickedSprites);
                 var names = _mod.Helper.Reflection.GetField<List<object>>(this, "names")?.GetValue();
                 var clickedNpcName = names?[clickedIndex] as string;
-                _mod.Monitor.Log($"You clicked on {clickedNpcName}");
+                _mod.Log($"You clicked on {clickedNpcName}");
 
                 CallNPc(clickedNpcName);
             }
@@ -72,7 +72,7 @@ namespace DewMods.StardewValleyMods.PhoneVillagers.Menus
             if (npc != null)
             {
                 var npcFriendshipBefore = who.tryGetFriendshipLevelForNPC(npcName);
-                _mod.Monitor.Log(
+                _mod.Log(
                     $"{npc.Name} location: {npc.currentLocation.Name}. Friendship with {who.Name}: {npcFriendshipBefore}.");
 
                 // Friendship check

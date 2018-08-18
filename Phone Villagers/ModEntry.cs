@@ -7,6 +7,7 @@ using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
 using System.Collections.Generic;
+using System.Dynamic;
 using DewMods.StardewValleyMods.PhoneVillagers.Menus;
 using StardewValley.Menus;
 using SocialPage = DewMods.StardewValleyMods.PhoneVillagers.Menus.SocialPage;
@@ -17,6 +18,7 @@ namespace DewMods.StardewValleyMods.PhoneVillagers
     public class ModEntry : Mod
     {
         internal ModConfig Config;
+
 
         /*********
         ** Public methods
@@ -38,7 +40,7 @@ namespace DewMods.StardewValleyMods.PhoneVillagers
         /// <param name="e"></param>
         private void MenuEvents_MenuChanged(object sender, EventArgsClickableMenuChanged e)
         {
-            this.Monitor.Log($"MenuEvents_MenuChanged {e.NewMenu}");
+            Log($"MenuEvents_MenuChanged {e.NewMenu}");
 
             if (e.NewMenu is GameMenu menu)
             {
@@ -47,15 +49,12 @@ namespace DewMods.StardewValleyMods.PhoneVillagers
                 if (socialPage != null)
                 {
                     var indexOfSocialPage = pages.IndexOf(socialPage);
-                    pages[indexOfSocialPage] = new Menus.SocialPage(this, socialPage.xPositionOnScreen, socialPage.yPositionOnScreen, socialPage.width, socialPage.height);
+                    pages[indexOfSocialPage] = new SocialPage(this, socialPage.xPositionOnScreen, socialPage.yPositionOnScreen, socialPage.width, socialPage.height);
                 }
             }
         }
 
 
-        /*********
-        ** Private methods
-        *********/
         /// <summary>The method invoked when the player presses a controller, keyboard, or mouse button.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event data.</param>
@@ -66,13 +65,25 @@ namespace DewMods.StardewValleyMods.PhoneVillagers
                 return;
 
             // print button presses to the console window
-            this.Monitor.Log($"{Game1.player.Name} pressed {e.Button}.");
+            Log($"{Game1.player.Name} pressed {e.Button}.");
 
             switch (e.Button)
             {
                 default:
                     break;
             }
+        }
+
+        /// <summary>
+        /// Only log if build is DEBUG
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="logLevel"></param>
+        internal void Log(string message, LogLevel logLevel = LogLevel.Debug)
+        {
+#if DEBUG
+            this.Monitor.Log(message, logLevel);
+#endif
         }
     }
 }
