@@ -31,7 +31,7 @@ Yes!
 
 **6. Can I send gifts to Villagers using this mod?**
 
-It was deliberately disabled.
+Not currently.
 
 # Donations
 If you liked this mod and would like to make a donation to me, you can do so via NexusMods [here](https://www.nexusmods.com/users/57714041).
