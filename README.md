@@ -25,7 +25,7 @@ Yes, this will add the same amount of friendship as talking to the NPC directly.
 
 5G
 
-**5. Will I lose 5G even if the call is not succesful?**
+**5. Will I lose 5G even if the call is not successful?**
 
 Yes!
 
