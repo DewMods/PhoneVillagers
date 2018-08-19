@@ -16,6 +16,11 @@ namespace NoFishingMinigame
         public override void Entry(IModHelper helper)
         {
             MenuEvents.MenuChanged += MenuEvents_MenuChanged;
+
+#if DEBUG
+            // TESTING
+            InputEvents.ButtonPressed += InputEvents_ButtonPressed;
+#endif
         }
 
         private void MenuEvents_MenuChanged(object sender, EventArgsClickableMenuChanged e)
@@ -33,17 +38,38 @@ namespace NoFishingMinigame
                 var perfect = this.Helper.Reflection.GetField<bool>(bobberBar, "perfect").GetValue();
                 var treasure = this.Helper.Reflection.GetField<bool>(bobberBar, "treasure").GetValue();
 
-                Log($"whichFish         {whichFish}", LogLevel.Trace);
-                Log($"fishSize          {fishSize}", LogLevel.Trace);
-                Log($"fishQuality       {fishQuality}", LogLevel.Trace);
-                Log($"difficulty        {difficulty}", LogLevel.Trace);
-                Log($"perfect           {perfect}", LogLevel.Trace);
-                Log($"treasure           {treasure}", LogLevel.Trace);
+                if (Game1.player.fishCaught.TryGetValue(whichFish, out var whichFishCaughtTimes))
+                {
+                    Log($"whichFishCaughtTimes   [{string.Join(", ", whichFishCaughtTimes)}]");
+                }
 
-                var treasureCaught = true;
-                fishingRod.pullFishFromWater(whichFish, fishSize, fishQuality, (int) difficulty, treasureCaught, perfect);
+                Log($"whichFish   [{whichFish}]. Times caught [{whichFishCaughtTimes?[0] + 1}]. Largest [{whichFishCaughtTimes?[1]}].");
+                Log($"fishSize    [{fishSize}]");
+                Log($"fishQuality [{fishQuality}]");
+                Log($"difficulty  [{difficulty}]");
+                Log($"perfect     [{perfect}]");
+                Log($"treasure    [{treasure}]");
+
+                // We always catch the treasure if one was spawned
+                var treasureCaught = treasure;
+                fishingRod.pullFishFromWater(whichFish, fishSize, fishQuality, (int)difficulty, treasureCaught, perfect);
+
                 Game1.exitActiveMenu();
-                Game1.setRichPresence("location", (object) Game1.currentLocation.Name);
+                Game1.setRichPresence("location", (object)Game1.currentLocation.Name);
+            }
+        }
+
+        /// <summary>
+        /// Increase the chance for spawning treasure
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InputEvents_ButtonPressed(object sender, EventArgsInput e)
+        {
+            if (e.Button == SButton.MouseLeft && Game1.player.CurrentTool is FishingRod fishingRod)
+            {
+                Game1.player.LuckLevel = 100;
+                Log($"OVERRIDING Game1.player.LuckLevel: [{Game1.player.LuckLevel}]", LogLevel.Alert);
             }
         }
 
