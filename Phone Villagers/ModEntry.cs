@@ -30,7 +30,6 @@ namespace DewMods.StardewValleyMods.PhoneVillagers
             this.Config = this.Helper.ReadConfig<ModConfig>();
 
             MenuEvents.MenuChanged += MenuEvents_MenuChanged;
-            InputEvents.ButtonPressed += this.InputEvents_ButtonPressed;
         }
 
         /// <summary>
@@ -51,26 +50,6 @@ namespace DewMods.StardewValleyMods.PhoneVillagers
                     var indexOfSocialPage = pages.IndexOf(socialPage);
                     pages[indexOfSocialPage] = new SocialPage(this, socialPage.xPositionOnScreen, socialPage.yPositionOnScreen, socialPage.width, socialPage.height);
                 }
-            }
-        }
-
-
-        /// <summary>The method invoked when the player presses a controller, keyboard, or mouse button.</summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event data.</param>
-        private void InputEvents_ButtonPressed(object sender, EventArgsInput e)
-        {
-            // ignore if player hasn't loaded a save yet
-            if (!Context.IsWorldReady)
-                return;
-
-            // print button presses to the console window
-            Log($"{Game1.player.Name} pressed {e.Button}.");
-
-            switch (e.Button)
-            {
-                default:
-                    break;
             }
         }
 
