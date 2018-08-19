@@ -66,6 +66,10 @@ namespace NoFishingMinigame
         /// <param name="e"></param>
         private void InputEvents_ButtonPressed(object sender, EventArgsInput e)
         {
+            // ignore if player hasn't loaded a save yet
+            if (!Context.IsWorldReady)
+                return;
+
             if (e.Button == SButton.MouseLeft && Game1.player.CurrentTool is FishingRod fishingRod)
             {
                 Game1.player.LuckLevel = 100;
