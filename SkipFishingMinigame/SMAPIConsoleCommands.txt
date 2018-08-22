@@ -1,2 +1,17 @@
 ﻿// Give player Iridium Rod
 player_add Tool 2 1 3
+
+
+// Fall festival
+world_setseason fall
+world_setday 16
+world_settime 0900
+
+
+
+// Festival of ice
+world_setseason winter
+world_setday 8
+world_settime 0900
+
+

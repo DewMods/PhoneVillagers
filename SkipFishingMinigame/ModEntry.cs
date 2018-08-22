@@ -24,8 +24,11 @@ namespace DewMods.StardewValleyMods.SkipFishingMinigame
         {
             Log($"MenuEvents_MenuChanged {e.NewMenu}");
             Log($"Game1.player.CurrentTool {Game1.player.CurrentTool}");
+            Log($"Is Festival [{Game1.isFestival()}]");
+            Log($"Is Event Up [{Game1.eventUp}]");
 
-            if (e.NewMenu is BobberBar bobberBar && Game1.player.CurrentTool is FishingRod fishingRod)
+            if (e.NewMenu is BobberBar bobberBar
+                    && Game1.player.CurrentTool is FishingRod fishingRod)
             {
                 var whichFish = this.Helper.Reflection.GetField<int>(bobberBar, "whichFish").GetValue();
                 var fishSize = this.Helper.Reflection.GetField<int>(bobberBar, "fishSize").GetValue();
@@ -42,8 +45,13 @@ namespace DewMods.StardewValleyMods.SkipFishingMinigame
                 Log($"perfect         [{perfect}]");
                 Log($"treasure        [{treasure}]");
 
+                // Perfect Catch during Fall Festival fishing minigame
+                if (Game1.isFestival())
+                { Game1.CurrentEvent.perfectFishing(); }
+
                 // We always catch the treasure if one was spawned
                 var treasureCaught = treasure;
+
                 fishingRod.pullFishFromWater(whichFish, fishSize, fishQuality, (int)difficulty, treasureCaught, perfect);
 
                 Game1.exitActiveMenu();
