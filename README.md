@@ -1,7 +1,5 @@
-# Phone Villagers
-This mod is built on SMAPI. 
-
-Phone Villagers is a Stardew Valley mod. The mod allows players to initiate dialogue with NPC villagers even if they are in different locations.
+# Description
+These are mods for Stardew Valley built on SMAPI. The mods are hosted at NexusMods, check the Links section below.
 
 # Compatibility
 | Description  | Version | Status |
@@ -44,6 +42,7 @@ Stardew Valley 1.3.27+
 SMAPI 2.6+
 
 # Links
-[PhoneVillagers on NexusMods](https://www.nexusmods.com/stardewvalley/mods/2681)
+[Phone Villagers on NexusMods](https://www.nexusmods.com/stardewvalley/mods/2681)
+[Skip Fishing Minigame on NexusMods](https://www.nexusmods.com/stardewvalley/mods/2697)
 
 [SMAPI](https://canimod.com/)
