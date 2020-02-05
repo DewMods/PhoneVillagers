@@ -1,14 +1,7 @@
-﻿using System.Collections;
-using System.Linq;
-using System;
-using Microsoft.Xna.Framework;
+﻿using System.Linq;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
-using StardewModdingAPI.Utilities;
-using StardewValley;
 using System.Collections.Generic;
-using System.Dynamic;
-using DewMods.StardewValleyMods.PhoneVillagers.Menus;
 using StardewValley.Menus;
 using SocialPage = DewMods.StardewValleyMods.PhoneVillagers.Menus.SocialPage;
 
@@ -29,15 +22,16 @@ namespace DewMods.StardewValleyMods.PhoneVillagers
         {
             this.Config = this.Helper.ReadConfig<ModConfig>();
 
-            MenuEvents.MenuChanged += MenuEvents_MenuChanged;
+            helper.Events.Display.MenuChanged += Display_MenuChanged;
         }
+
 
         /// <summary>
         /// When the player brings up the menu, replace the SocialPage with our own
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MenuEvents_MenuChanged(object sender, EventArgsClickableMenuChanged e)
+        private void Display_MenuChanged(object sender, MenuChangedEventArgs e)
         {
             Log($"MenuEvents_MenuChanged {e.NewMenu}");
 

@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using StardewModdingAPI;
 using StardewValley;
-using StardewValley.Locations;
 using StardewValley.Menus;
 
 namespace DewMods.StardewValleyMods.PhoneVillagers.Menus
@@ -27,6 +25,8 @@ namespace DewMods.StardewValleyMods.PhoneVillagers.Menus
         /// <param name="playSound"></param>
         public override void receiveLeftClick(int x, int y, bool playSound = true)
         {
+            //TODO THIS IS BUGGY. Clicking on a row can show favourite gifts / bday. Suggest creating a new inventory item "Phone"?
+
             base.receiveLeftClick(x, y, playSound);
 
             var sprites = _mod.Helper.Reflection.GetField<List<ClickableTextureComponent>>(this, "sprites")?.GetValue();
@@ -56,7 +56,7 @@ namespace DewMods.StardewValleyMods.PhoneVillagers.Menus
                 var clickedNpcName = names?[clickedIndex] as string;
                 _mod.Log($"You clicked on {clickedNpcName}");
 
-                CallNPc(clickedNpcName);
+                CallNpc(clickedNpcName);
             }
         }
 
@@ -64,7 +64,7 @@ namespace DewMods.StardewValleyMods.PhoneVillagers.Menus
         /// Call the given NPC
         /// </summary>
         /// <param name="npcName"></param>
-        private void CallNPc(string npcName)
+        private void CallNpc(string npcName)
         {
             var who = Game1.player;
 

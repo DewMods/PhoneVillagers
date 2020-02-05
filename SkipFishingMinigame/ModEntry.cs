@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using StardewModdingAPI;
+﻿using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Menus;
@@ -16,11 +11,12 @@ namespace DewMods.StardewValleyMods.SkipFishingMinigame
     {
         public override void Entry(IModHelper helper)
         {
-            MenuEvents.MenuChanged += MenuEvents_MenuChanged;
-            InputEvents.ButtonPressed += InputEvents_ButtonPressed;
+            helper.Events.Input.ButtonPressed += Input_ButtonPressed;
+            helper.Events.Display.MenuChanged += Display_MenuChanged;
         }
 
-        private void MenuEvents_MenuChanged(object sender, EventArgsClickableMenuChanged e)
+
+        private void Display_MenuChanged(object sender, MenuChangedEventArgs e)
         {
             Log($"MenuEvents_MenuChanged {e.NewMenu}");
             Log($"Game1.player.CurrentTool {Game1.player.CurrentTool}");
@@ -35,7 +31,14 @@ namespace DewMods.StardewValleyMods.SkipFishingMinigame
                 var fishQuality = this.Helper.Reflection.GetField<int>(bobberBar, "fishQuality").GetValue();
                 var difficulty = this.Helper.Reflection.GetField<float>(bobberBar, "difficulty").GetValue();
                 var perfect = this.Helper.Reflection.GetField<bool>(bobberBar, "perfect").GetValue();
-                var treasure = this.Helper.Reflection.GetField<bool>(bobberBar, "treasure").GetValue();
+                var treasureCaught = this.Helper.Reflection.GetField<bool>(bobberBar, "treasure").GetValue();
+                var fromFishPond = this.Helper.Reflection.GetField<bool>(bobberBar, "fromFishPond").GetValue();
+                var bossFish = this.Helper.Reflection.GetField<bool>(bobberBar, "bossFish").GetValue();
+
+                int num = Game1.player.CurrentTool == null || !(Game1.player.CurrentTool is FishingRod) || (Game1.player.CurrentTool as FishingRod).attachments[0] == null ?
+                    -1 :
+                    (Game1.player.CurrentTool as FishingRod).attachments[0].ParentSheetIndex;
+                bool caughtDouble = !bossFish && num == 774 && Game1.random.NextDouble() < 0.25 + Game1.player.DailyLuck / 2.0;
 
                 Game1.player.fishCaught.TryGetValue(whichFish, out var whichFishCaughtTimes);
                 Log($"whichFish       [{whichFish}]. Times caught [{whichFishCaughtTimes?[0] + 1}]. Largest [{whichFishCaughtTimes?[1]}].");
@@ -43,16 +46,17 @@ namespace DewMods.StardewValleyMods.SkipFishingMinigame
                 Log($"fishQuality     [{fishQuality}]");
                 Log($"difficulty      [{difficulty}]");
                 Log($"perfect         [{perfect}]");
-                Log($"treasure        [{treasure}]");
+                Log($"treasureCaught  [{treasureCaught}]");
+                Log($"fromFishPond    [{fromFishPond}]");
+                Log($"bossFish        [{bossFish}]");
+                Log($"caughtDouble    [{caughtDouble}]");
 
                 // Perfect Catch during Fall Festival fishing minigame
                 if (Game1.isFestival())
                 { Game1.CurrentEvent.perfectFishing(); }
 
                 // We always catch the treasure if one was spawned
-                var treasureCaught = treasure;
-
-                fishingRod.pullFishFromWater(whichFish, fishSize, fishQuality, (int)difficulty, treasureCaught, perfect);
+                fishingRod.pullFishFromWater(whichFish, fishSize, fishQuality, (int)difficulty, treasureCaught, perfect, fromFishPond, caughtDouble);
 
                 Game1.exitActiveMenu();
                 Game1.setRichPresence("location", (object)Game1.currentLocation.Name);
@@ -64,7 +68,7 @@ namespace DewMods.StardewValleyMods.SkipFishingMinigame
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void InputEvents_ButtonPressed(object sender, EventArgsInput e)
+        private void Input_ButtonPressed(object sender, ButtonPressedEventArgs e)
         {
             // ignore if player hasn't loaded a save yet
             if (!Context.IsWorldReady)
@@ -84,7 +88,7 @@ namespace DewMods.StardewValleyMods.SkipFishingMinigame
             }
 
             //var oldFarmingExp = Game1.player.experiencePoints[(int)Player.ExperiencePointsIndex.Farming];
-            //var oldFishingExp = Game1.player.experiencePoints[(int)Player.ExperiencePointsIndex.Fishing];
+            var oldFishingExp = Game1.player.experiencePoints[(int)Player.ExperiencePointsIndex.Fishing];
             //var oldMiningExp = Game1.player.experiencePoints[(int)Player.ExperiencePointsIndex.Mining];
             //var oldCombatExp = Game1.player.experiencePoints[(int)Player.ExperiencePointsIndex.Combat];
             //var oldUnknownExp = Game1.player.experiencePoints[(int)Player.ExperiencePointsIndex.UNKNOWN];
@@ -93,8 +97,8 @@ namespace DewMods.StardewValleyMods.SkipFishingMinigame
             //var newFarmingExp = Game1.player.experiencePoints[(int)Player.ExperiencePointsIndex.Farming];
             //Log($"Farming Experience [{oldFarmingExp}] -> [{newFarmingExp}] (+{newFarmingExp - oldFarmingExp})");
 
-            //var newFishingExp = Game1.player.experiencePoints[(int)Player.ExperiencePointsIndex.Fishing];
-            //Log($"Fishing Experience [{oldFishingExp}] -> [{newFishingExp}] (+{newFishingExp - oldFishingExp})");
+            var newFishingExp = Game1.player.experiencePoints[(int)Player.ExperiencePointsIndex.Fishing];
+            Log($"Fishing Experience [{oldFishingExp}] -> [{newFishingExp}] (+{newFishingExp - oldFishingExp})");
 
             //var newMiningExp = Game1.player.experiencePoints[(int)Player.ExperiencePointsIndex.Mining];
             //Log($"Mining Experience [{oldMiningExp}] -> [{newMiningExp}] (+{newMiningExp - oldMiningExp})");
